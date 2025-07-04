@@ -4,14 +4,15 @@
 
 <html>
 <head>
-    <title>Dashboard</title>
-<link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
+    <title>Vue d’ensemble</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/style.css">
 </head>
 <body>
 <div class="container">
-<h2>Statistiques</h2>
 
-<h2>📚 Livres les plus empruntés</h2>
+<h2>🔎 Aperçu général de la bibliothèque</h2>
+
+<h3>🏆 Classement des livres les plus lus</h3>
 <%
     List topLivres = (List) request.getAttribute("topLivres");
     if (topLivres != null && !topLivres.isEmpty()) {
@@ -28,12 +29,12 @@
 <%
     } else {
 %>
-    <p>Aucune donnée à afficher.</p>
+    <p>Aucune information disponible.</p>
 <%
     }
 %>
 
-<h2>👤 Adhérents les plus actifs</h2>
+<h3>💪 Lecteurs les plus fréquents</h3>
 <%
     List topAdherents = (List) request.getAttribute("topAdherents");
     if (topAdherents != null && !topAdherents.isEmpty()) {
@@ -50,12 +51,12 @@
 <%
     } else {
 %>
-    <p>Aucune donnée à afficher.</p>
+    <p>Aucune information disponible.</p>
 <%
     }
 %>
 
-<h3>📊 Emprunts par type d’adhérent</h3>
+<h3>📂 Répartition des emprunts par type d’adhérent</h3>
 <%
     List profils = (List) request.getAttribute("profils");
     if (profils != null && !profils.isEmpty()) {
@@ -80,28 +81,28 @@
     }
 %>
 
-<h3>⏰ Taux de retard</h3>
+<h3>🚨 Pourcentage d’emprunts en retard</h3>
 <%
     Object tauxRetard = request.getAttribute("tauxRetard");
     if (tauxRetard != null) {
 %>
-    <p><%= tauxRetard %>% des emprunts sont en retard.</p>
+    <p><%= tauxRetard %>% des livres ont été retournés après la date prévue.</p>
 <%
     } else {
 %>
-    <p>Pas de données sur le taux de retard.</p>
+    <p>Aucune donnée disponible.</p>
 <%
     }
 %>
 
-<h3>📚 Historique des emprunts</h3>
+<h3>📖 Emprunts enregistrés</h3>
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Livre</th>
-        <th>Adhérent</th>
-        <th>Date emprunt</th>
-        <th>Retour prévu</th>
+        <th>Titre</th>
+        <th>Lecteur</th>
+        <th>Emprunté le</th>
+        <th>Retour attendu</th>
     </tr>
     <%
         List<Map<String, Object>> histEmp = (List<Map<String, Object>>) request.getAttribute("historiqueEmprunts");
@@ -123,13 +124,13 @@
 
 <br>
 
-<h3>✅ Historique des retours</h3>
+<h3>📅 Retours effectués</h3>
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Livre</th>
-        <th>Adhérent</th>
-        <th>Date retour</th>
+        <th>Titre</th>
+        <th>Lecteur</th>
+        <th>Date du retour</th>
     </tr>
     <%
         List<Map<String, Object>> histRet = (List<Map<String, Object>>) request.getAttribute("historiqueRetours");
@@ -148,9 +149,9 @@
     %>
 </table>
 
-<p><a href="<%= request.getContextPath() %>/emprunt">Nouvel emprunt</a></p>
-<p><a href="<%= request.getContextPath() %>/retour">Retourner un livre</a></p>
-<p><a href="<%= request.getContextPath() %>/logout">Se déconnecter</a></p>
+<p><a href="<%= request.getContextPath() %>/emprunt">📥 Enregistrer un nouvel emprunt</a></p>
+<p><a href="<%= request.getContextPath() %>/retour">📤 Retourner un livre</a></p>
+<p><a href="<%= request.getContextPath() %>/logout">🚪 Déconnexion</a></p>
 
 </div>
 </body>
