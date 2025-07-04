@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.maBibliotheque.util.DatabaseConnection;
 
@@ -63,6 +67,58 @@ public void marquerDisponible(int idExemplaire) {
     } catch (SQLException e) {
         e.printStackTrace();
     }
+}
+
+public List<Map<String, Object>> findExemplairesDisponibles() {
+    List<Map<String, Object>> list = new ArrayList<>();
+    String sql = """
+        SELECT e.id_exemplaire AS id, l.titre
+        FROM exemplaire e
+        JOIN livre l ON e.id_livre = l.id_livre
+        WHERE e.disponible = TRUE
+    """;
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Map<String, Object> ex = new HashMap<>();
+            ex.put("id", rs.getInt("id"));
+            ex.put("titre", rs.getString("titre"));
+            list.add(ex);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
+
+public List<Map<String, Object>> findExemplairesEmpruntes() {
+    List<Map<String, Object>> list = new ArrayList<>();
+    String sql = """
+        SELECT e.id_exemplaire AS id, l.titre
+        FROM exemplaire e
+        JOIN livre l ON e.id_livre = l.id_livre
+        WHERE e.disponible = FALSE
+    """;
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Map<String, Object> ex = new HashMap<>();
+            ex.put("id", rs.getInt("id"));
+            ex.put("titre", rs.getString("titre"));
+            list.add(ex);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return list;
 }
 
 }

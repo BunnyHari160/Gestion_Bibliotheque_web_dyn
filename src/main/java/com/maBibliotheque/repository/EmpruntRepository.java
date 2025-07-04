@@ -3,6 +3,10 @@ package com.maBibliotheque.repository;
 import com.maBibliotheque.util.DatabaseConnection;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EmpruntRepository {
 
@@ -107,5 +111,66 @@ public void enregistrerHistorique(int idEmprunt, int idAction) {
     }
 }
 
+public List<Map<String, Object>> getHistoriqueEmprunts() {
+    List<Map<String, Object>> list = new ArrayList<>();
+    String sql = "SELECT e.id_emprunt, l.titre, a.nom, a.prenom, e.date_emprunt, e.date_retour_prevue " +
+                 "FROM emprunt e " +
+                 "JOIN exemplaire ex ON e.id_exemplaire = ex.id_exemplaire " +
+                 "JOIN livre l ON ex.id_livre = l.id_livre " +
+                 "JOIN adherent a ON e.id_adherent = a.id_adherent " +
+                 "ORDER BY e.date_emprunt DESC";
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Map<String, Object> ligne = new HashMap<>();
+            ligne.put("id", rs.getInt("id_emprunt"));
+            ligne.put("titre", rs.getString("titre"));
+            ligne.put("nom", rs.getString("nom"));
+            ligne.put("prenom", rs.getString("prenom"));
+            ligne.put("dateEmprunt", rs.getDate("date_emprunt"));
+            ligne.put("dateRetourPrevue", rs.getDate("date_retour_prevue"));
+            list.add(ligne);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
+
+public List<Map<String, Object>> getHistoriqueRetours() {
+    List<Map<String, Object>> list = new ArrayList<>();
+    String sql = "SELECT e.id_emprunt, l.titre, a.nom, a.prenom, e.date_retour_effective " +
+                 "FROM emprunt e " +
+                 "JOIN exemplaire ex ON e.id_exemplaire = ex.id_exemplaire " +
+                 "JOIN livre l ON ex.id_livre = l.id_livre " +
+                 "JOIN adherent a ON e.id_adherent = a.id_adherent " +
+                 "WHERE e.date_retour_effective IS NOT NULL " +
+                 "ORDER BY e.date_retour_effective DESC";
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Map<String, Object> ligne = new HashMap<>();
+            ligne.put("id", rs.getInt("id_emprunt"));
+            ligne.put("titre", rs.getString("titre"));
+            ligne.put("nom", rs.getString("nom"));
+            ligne.put("prenom", rs.getString("prenom"));
+            ligne.put("dateRetour", rs.getDate("date_retour_effective"));
+            list.add(ligne);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
 
 }

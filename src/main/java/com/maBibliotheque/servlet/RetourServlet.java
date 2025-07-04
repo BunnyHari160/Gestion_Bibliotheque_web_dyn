@@ -8,6 +8,8 @@ import com.maBibliotheque.repository.EmpruntRepository;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class RetourServlet extends HttpServlet {
 
@@ -24,6 +26,13 @@ public class RetourServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Charger les listes nécessaires au formulaire
+        List<Map<String, Object>> adherents = empruntService.getAllAdherents();
+        List<Map<String, Object>> exemplaires = empruntService.getExemplairesEmpruntes();
+
+        request.setAttribute("adherents", adherents);
+        request.setAttribute("exemplairesEmpruntes", exemplaires);
+
         request.getRequestDispatcher("/WEB-INF/jsp/retour.jsp").forward(request, response);
     }
 
@@ -43,6 +52,14 @@ public class RetourServlet extends HttpServlet {
         }
 
         request.setAttribute("message", message);
+
+        // Recharge les listes pour réafficher correctement le formulaire
+        List<Map<String, Object>> adherents = empruntService.getAllAdherents();
+        List<Map<String, Object>> exemplaires = empruntService.getExemplairesEmpruntes();
+
+        request.setAttribute("adherents", adherents);
+        request.setAttribute("exemplairesEmpruntes", exemplaires);
+
         request.getRequestDispatcher("/WEB-INF/jsp/retour.jsp").forward(request, response);
     }
 }

@@ -4,6 +4,8 @@ import com.maBibliotheque.service.EmpruntService;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class EmpruntServlet extends HttpServlet {
 
@@ -11,8 +13,6 @@ public class EmpruntServlet extends HttpServlet {
 
     @Override
     public void init() {
-        // Injection manuelle des dépendances
-        // Ou récupérer via Spring si intégré (complexe, hors scope)
         empruntService = new EmpruntService(
             new com.maBibliotheque.repository.AdherentRepository(),
             new com.maBibliotheque.repository.ExemplaireRepository(),
@@ -20,10 +20,20 @@ public class EmpruntServlet extends HttpServlet {
         );
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Charger la liste des adhérents actifs
+        List<Map<String, Object>> adherents = empruntService.getAllAdherents();
+        // Charger la liste des exemplaires disponibles
+        List<Map<String, Object>> exemplairesDisponibles = empruntService.getExemplairesDisponibles();
+
+        request.setAttribute("adherents", adherents);
+        request.setAttribute("exemplairesDisponibles", exemplairesDisponibles);
+
         request.getRequestDispatcher("/WEB-INF/jsp/emprunt.jsp").forward(request, response);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idAdherentStr = request.getParameter("idAdherent");
         String idExemplaireStr = request.getParameter("idExemplaire");
@@ -37,6 +47,13 @@ public class EmpruntServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             request.setAttribute("message", "Entrée invalide.");
         }
+
+        // Après post, recharger les listes pour ne pas perdre les options dans le formulaire
+        List<Map<String, Object>> adherents = empruntService.getAllAdherents();
+        List<Map<String, Object>> exemplairesDisponibles = empruntService.getExemplairesDisponibles();
+
+        request.setAttribute("adherents", adherents);
+        request.setAttribute("exemplairesDisponibles", exemplairesDisponibles);
 
         request.getRequestDispatcher("/WEB-INF/jsp/emprunt.jsp").forward(request, response);
     }

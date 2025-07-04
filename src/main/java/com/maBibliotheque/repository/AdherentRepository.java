@@ -5,6 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AdherentRepository {
 
@@ -145,5 +149,40 @@ public int getDureePenalite(int idAdherent) {
     return 0;
 }
 
+public int getDureeEmprunt(int idAdherent) {
+    String sql = "SELECT ta.duree_emprunt_auth FROM adherent a JOIN type_adherent ta ON a.id_type_adherent = ta.id_type_adherent WHERE a.id_adherent = ?";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idAdherent);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) return rs.getInt("duree_emprunt_auth");
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0;
+}
+
+
+public List<Map<String, Object>> findAllAdherents() {
+    List<Map<String, Object>> list = new ArrayList<>();
+    String sql = "SELECT id_adherent AS id, nom, prenom FROM adherent WHERE id_statut = 1";
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Map<String, Object> adh = new HashMap<>();
+            adh.put("id", rs.getInt("id"));
+            adh.put("nom", rs.getString("nom"));
+            adh.put("prenom", rs.getString("prenom"));
+            list.add(adh);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
 
 }
