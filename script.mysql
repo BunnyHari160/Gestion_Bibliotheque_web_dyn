@@ -189,3 +189,34 @@ INSERT INTO historique_emprunt (id_emprunt, id_action, date_action) VALUES (2, 2
 -- Retour en retard (prévu 07/09, retour 07/20)
 UPDATE emprunt SET date_retour_effective = '2025-07-20' WHERE id_emprunt = 4;
 INSERT INTO historique_emprunt (id_emprunt, id_action, date_action) VALUES (4, 2, '2025-07-20');
+
+
+----------------------------------
+
+-- 📌 Emprunt par professeur
+INSERT INTO emprunt (id_adherent, id_exemplaire, date_emprunt, date_retour_prevue) VALUES
+(1, 6, '2025-06-10', '2025-07-10'),  -- PROF001
+
+-- 📌 Emprunts par étudiants actifs
+(2, 7, '2025-07-01', '2025-07-16'),  -- ETUD001
+(6, 8, '2025-07-01', '2025-07-16'),  -- ETUD003
+(9, 9, '2025-07-02', '2025-07-17'),  -- ETUD005
+
+-- 📌 Emprunt par staff pro actif
+(3, 10, '2025-07-01', '2025-08-10'); -- PROS001
+
+-- Historique des emprunts
+INSERT INTO historique_emprunt (id_emprunt, id_action, date_action) VALUES
+(6, 1, '2025-06-10'),  -- emprunt du professeur
+(7, 1, '2025-07-01'),  -- emprunt étudiant 1
+(8, 1, '2025-07-01'),  -- emprunt étudiant 2
+(9, 1, '2025-07-02'),  -- emprunt étudiant 3
+(10, 1, '2025-07-01'); -- emprunt staff
+
+-- Retour dans les temps (emprunt 6)
+UPDATE emprunt SET date_retour_effective = '2025-07-05' WHERE id_emprunt = 6;
+INSERT INTO historique_emprunt (id_emprunt, id_action, date_action) VALUES (6, 2, '2025-07-05');
+
+-- Retour en retard (emprunt 8)
+UPDATE emprunt SET date_retour_effective = '2025-07-25' WHERE id_emprunt = 8;
+INSERT INTO historique_emprunt (id_emprunt, id_action, date_action) VALUES (8, 2, '2025-07-25');

@@ -6,12 +6,15 @@ C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\j
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\repository\DashboardRepository.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\repository\EmpruntRepository.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\repository\ExemplaireRepository.java
+C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\repository\LivreRepository.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\repository\StaffRepository.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\repository\StatistiqueRepository.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\service\DashboardService.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\service\EmpruntService.java
+C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\service\LivreService.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\servlet\DashboardServlet.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\servlet\EmpruntServlet.java
+C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\servlet\LivreServlet.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\servlet\LoginServlet.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\servlet\RetourServlet.java
 C:\Users\HP\Desktop\gestion_bibliotheque\Gestion_Bibliotheque_web_dyn\src\main\java\com\maBibliotheque\util\DatabaseConnection.java

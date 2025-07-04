@@ -36,6 +36,15 @@
     <url-pattern>/dashboard</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>livre</servlet-name>
+    <servlet-class>com.maBibliotheque.servlet.LivreServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>livre</servlet-name>
+    <url-pattern>/livres</url-pattern>
+</servlet-mapping>
 
     <!-- Session timeout 30min -->
     <session-config>

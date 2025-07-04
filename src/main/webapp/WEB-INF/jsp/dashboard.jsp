@@ -152,6 +152,8 @@
 <p><a href="<%= request.getContextPath() %>/emprunt">📥 Enregistrer un nouvel emprunt</a></p>
 <p><a href="<%= request.getContextPath() %>/retour">📤 Retourner un livre</a></p>
 <p><a href="<%= request.getContextPath() %>/logout">🚪 Déconnexion</a></p>
+<p><a href="<%= request.getContextPath() %>/livres">📘 Voir tous les livres</a></p>
+
 
 </div>
 </body>
