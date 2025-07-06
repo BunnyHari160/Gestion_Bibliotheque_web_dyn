@@ -16,7 +16,9 @@ public class LoginServlet extends HttpServlet {
         if(staffRepo.validerLogin(username, password)) {
             HttpSession session = request.getSession();
             session.setAttribute("user", username);
-            response.sendRedirect("emprunt"); // redirige vers page emprunt
+            // response.sendRedirect("emprunt"); // redirige vers page emprunt
+response.sendRedirect(request.getContextPath() + "/emprunt");
+
         } else {
             request.setAttribute("error", "Utilisateur ou mot de passe incorrect");
             request.getRequestDispatcher("index.jsp").forward(request, response);
